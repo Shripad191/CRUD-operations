@@ -1,4 +1,4 @@
-# AWS Deployment Guide
+
 
 ## Student Registration CRUD Application
 
@@ -109,6 +109,7 @@ Create a dedicated VPC:
 ``` text
 VPC CIDR: 10.0.0.0/16
 ```
+<img width="1919" height="869" alt="VPC Overview" src="https://github.com/user-attachments/assets/25fa742a-b4d4-498e-ab69-ee250eff2ea1" />
 
 Create six subnets across two Availability Zones.
 
@@ -147,6 +148,8 @@ The architecture separates resources according to their exposure:
     public IP addresses.
 3.  **Database tier** --- RDS only, with no direct Internet route.
 
+<img width="1919" height="907" alt="Subnets" src="https://github.com/user-attachments/assets/556d2505-8809-4b93-982f-ace4098eb3ac" />
+
 ------------------------------------------------------------------------
 
 # 4. Internet Gateway
@@ -175,6 +178,8 @@ Associate it with:
 -   Public-B
 
 This makes these subnets public.
+
+<img width="1919" height="902" alt="Route Tables" src="https://github.com/user-attachments/assets/ac72355e-150b-44dc-8416-e189f2871edd" />
 
 ------------------------------------------------------------------------
 
@@ -255,6 +260,7 @@ For this practice deployment, use one NAT Gateway to reduce cost.
 ``` text
 0.0.0.0/0 -> NAT Gateway
 ```
+<img width="1919" height="902" alt="NAT Gateway" src="https://github.com/user-attachments/assets/29b5049d-f77a-4787-8289-d056f3f916e2" />
 
 ### Availability note
 
@@ -382,6 +388,9 @@ Do not use:
 
 for SSH.
 
+<img width="1919" height="909" alt="Security Group" src="https://github.com/user-attachments/assets/f4794adc-df39-4af1-a529-6ba829ba6148" />
+
+
 ------------------------------------------------------------------------
 
 # 8. EC2 Key Pair
@@ -425,6 +434,9 @@ Recommended architecture:
 -   Public access: **No**
 
 Use a strong database password.
+
+<img width="1919" height="910" alt="RDS" src="https://github.com/user-attachments/assets/6daaa062-935d-428e-afc8-6dd47edddc23" />
+
 
 ### Database endpoint
 
@@ -530,6 +542,9 @@ should register automatically.
 A successful response from `/api/users` indicates that the backend
 application is responding.
 
+<img width="1919" height="902" alt="Backend Target Group" src="https://github.com/user-attachments/assets/988c05cf-ddda-4d2b-83df-32c3f36b6dac" />
+
+
 ------------------------------------------------------------------------
 
 # 12. Frontend Target Group
@@ -546,6 +561,9 @@ Create a second target group.
   Health check port       Traffic port
 
 The frontend target group can initially be empty.
+
+<img width="1919" height="904" alt="Frontend Traget Group" src="https://github.com/user-attachments/assets/bcb1ac35-3c51-4b07-ac4c-6c4b94cd4471" />
+
 
 ------------------------------------------------------------------------
 
@@ -635,6 +653,9 @@ After launching, verify:
 5.  Port 8080 is listening.
 6.  `/api/users` returns successfully.
 7.  Backend can connect to RDS.
+
+<img width="1919" height="902" alt="Backend ASG" src="https://github.com/user-attachments/assets/6ee7a598-7d9f-4d41-81a8-75983621740a" />
+
 
 ------------------------------------------------------------------------
 
@@ -773,6 +794,8 @@ Verify:
 5.  Instance is registered in the frontend target group.
 6.  Target becomes healthy.
 
+<img width="1919" height="906" alt="Frontend ASG" src="https://github.com/user-attachments/assets/6c9b80e8-2cb3-470b-9561-b50cf4efd8db" />
+
 Useful checks:
 
 ``` bash
@@ -823,6 +846,8 @@ Attach:
 -   Frontend target group
 -   Backend target group through a listener rule
 
+<img width="1919" height="907" alt="Application Load Balancer" src="https://github.com/user-attachments/assets/f7426464-ef82-4833-beb5-764fead66a86" />
+
 ------------------------------------------------------------------------
 
 # 19. ALB Listener Rules
@@ -864,6 +889,8 @@ http://<ALB-DNS>/api/users
 
 This is the key routing mechanism that allows the React frontend and
 Spring Boot backend to share the same public origin.
+
+<img width="1919" height="902" alt="ALB Rules" src="https://github.com/user-attachments/assets/0aef75e2-ea29-45bc-8823-6288925d5a37" />
 
 ------------------------------------------------------------------------
 
@@ -973,6 +1000,9 @@ POST /api/register
 
 and the backend should persist the record in RDS.
 
+<img width="1919" height="964" alt="Successful Student Registration" src="https://github.com/user-attachments/assets/71009f66-59c3-44ca-a8e2-4196b1155844" />
+
+
 ------------------------------------------------------------------------
 
 ## 21.4 Test users endpoint
@@ -999,6 +1029,9 @@ DELETE /api/users/<id>
 
 After deletion, refresh the application or users list and verify that
 the record is gone.
+
+<img width="1919" height="964" alt="Successful Deletion Operation" src="https://github.com/user-attachments/assets/37b83d4d-7bac-4a67-a662-cea18ca7c4a7" />
+
 
 ------------------------------------------------------------------------
 
